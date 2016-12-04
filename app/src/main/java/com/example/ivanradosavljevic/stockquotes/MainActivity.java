@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainFragment extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     ListView lv;
     List<Symbol> symbolList;
     Gson gson;
@@ -92,7 +92,7 @@ public class MainFragment extends AppCompatActivity {
 
     private class Operation extends AsyncTask<String, Void, String> {
 
-        ProgressDialog progressDialog = new ProgressDialog(MainFragment.this);
+        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
         String server_response;
 
         @Override
@@ -117,7 +117,7 @@ public class MainFragment extends AppCompatActivity {
                     server_response = readStream(urlConnection.getInputStream());
                     Log.v("CatalogClient", server_response);
                     MyParser myParser = new MyParser(server_response);
-                    MainFragment.this.symbolList = myParser.getList();
+                    MainActivity.this.symbolList = myParser.getList();
 
                 }
             } catch (MalformedURLException e) {
@@ -137,7 +137,7 @@ public class MainFragment extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Symbol clickedSymbol = getSymbolList().get(i);
-                    Intent intent = new Intent(MainFragment.this, DetailActivity.class);
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                     intent.putExtra("clickedSymbol", clickedSymbol);
                     startActivity(intent);
                 }
