@@ -12,38 +12,57 @@ import java.util.Date;
 public class Symbol implements Serializable {
     String name;
     String id;
-    double quoteChangePercent;
-    double quoteLast;
-    double quoteChange;
+    String quoteChangePercent;
+    String quoteLast;
+    String quoteChange;
     Date dateTime;
-    double quoteOpen;
-    double quoteHigh;
-    double quoteLow;
+    String quoteOpen;
+    String quoteHigh;
+    String quoteLow;
+    String quoteVolume;
+    String quoteBid;
+    String quoteAsk;
 
     public Symbol() {
     }
 
-    public Symbol(String name, String id, double quoteChangePercent, double quoteLast, double quoteChange, Date dateTime, double quoteOpen, double quoteHigh, double quoteLow) {
-        this.name = name;
-        this.id = id;
-        this.quoteChangePercent = quoteChangePercent;
-        this.quoteLast = quoteLast;
-        this.quoteChange = quoteChange;
+    public String getQuoteBid() {
+        return quoteBid;
+    }
+
+    public void setQuoteBid(String quoteBid) {
+        this.quoteBid = quoteBid;
+    }
+
+    public String getQuoteAsk() {
+        return quoteAsk;
+    }
+
+    public void setQuoteAsk(String quoteAsk) {
+        this.quoteAsk = quoteAsk;
+    }
+
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
-        this.quoteOpen = quoteOpen;
-        this.quoteHigh = quoteHigh;
-        this.quoteLow = quoteLow;
+    }
+
+    public String getQuoteVolume() {
+        return quoteVolume;
+    }
+
+    public void setQuoteVolume(String quoteVolume) {
+        this.quoteVolume = quoteVolume;
     }
 
     public String getName() {
         return name;
     }
 
-    public double getQuoteChange() {
+    public String getQuoteChange() {
         return quoteChange;
     }
 
-    public void setQuoteChange(double quoteChange) {
+    public void setQuoteChange(String quoteChange) {
         this.quoteChange = quoteChange;
     }
 
@@ -60,27 +79,27 @@ public class Symbol implements Serializable {
         }
     }
 
-    public double getQuoteOpen() {
+    public String getQuoteOpen() {
         return quoteOpen;
     }
 
-    public void setQuoteOpen(double quoteOpen) {
+    public void setQuoteOpen(String quoteOpen) {
         this.quoteOpen = quoteOpen;
     }
 
-    public double getQuoteHigh() {
+    public String getQuoteHigh() {
         return quoteHigh;
     }
 
-    public void setQuoteHigh(double quoteHigh) {
+    public void setQuoteHigh(String quoteHigh) {
         this.quoteHigh = quoteHigh;
     }
 
-    public double getQuoteLow() {
+    public String getQuoteLow() {
         return quoteLow;
     }
 
-    public void setQuoteLow(double quoteLow) {
+    public void setQuoteLow(String quoteLow) {
         this.quoteLow = quoteLow;
     }
 
@@ -96,19 +115,19 @@ public class Symbol implements Serializable {
         this.id = id;
     }
 
-    public double getQuoteChangePercent() {
+    public String getQuoteChangePercent() {
         return quoteChangePercent;
     }
 
-    public void setQuoteChangePercent(double quoteChangePercent) {
+    public void setQuoteChangePercent(String quoteChangePercent) {
         this.quoteChangePercent = quoteChangePercent;
     }
 
-    public double getQuoteLast() {
+    public String getQuoteLast() {
         return quoteLast;
     }
 
-    public void setQuoteLast(double quoteLast) {
+    public void setQuoteLast(String quoteLast) {
         this.quoteLast = quoteLast;
     }
 }

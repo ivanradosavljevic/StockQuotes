@@ -53,13 +53,16 @@ public class MyParser {
                     NodeList quotes = symbolNode.getElementsByTagName("Quote");
                     for (int k = 0; k < quotes.getLength(); k++) {
                         Element quoteNode = (Element) quotes.item(k);
-                        symbol.setQuoteChangePercent(Double.parseDouble(quoteNode.getAttribute("changePercent")));
-                        symbol.setQuoteLast(Double.parseDouble(quoteNode.getAttribute("last")));
-                        symbol.setQuoteHigh(Double.parseDouble(quoteNode.getAttribute("high")));
-                        symbol.setQuoteChange(Double.parseDouble(quoteNode.getAttribute("change")));
-                        symbol.setQuoteLow(Double.parseDouble(quoteNode.getAttribute("low")));
-                        symbol.setQuoteOpen(Double.parseDouble(quoteNode.getAttribute("open")));
+                        symbol.setQuoteChangePercent(quoteNode.getAttribute("changePercent"));
+                        symbol.setQuoteLast(quoteNode.getAttribute("last"));
+                        symbol.setQuoteHigh(quoteNode.getAttribute("high"));
+                        symbol.setQuoteChange(quoteNode.getAttribute("change"));
+                        symbol.setQuoteLow(quoteNode.getAttribute("low"));
+                        symbol.setQuoteOpen(quoteNode.getAttribute("open"));
                         symbol.setDateTime(quoteNode.getAttribute("dateTime"));
+                        symbol.setQuoteVolume(quoteNode.getAttribute("volume"));
+                        symbol.setQuoteBid(quoteNode.getAttribute("bid"));
+                        symbol.setQuoteAsk(quoteNode.getAttribute("ask"));
                     }
                     list.add(symbol);
                 }

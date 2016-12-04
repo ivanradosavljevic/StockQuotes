@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">StockQuotes</string>
-    <string name="lbl_change">Last</string>
-    <string name="lbl_change_per">Change(%)</string>
+    <string name="lbl_change">LAST</string>
+    <string name="lbl_change_per">CHANGE(%)</string>
+    <string name="lbl_open">OPEN</string>
+    <string name="lbl_high">HIGH</string>
+    <string name="lbl_low">LOW</string>
+    <string name="lbl_volume">VOLUME</string>
+    <string name="lbl_bid">BID</string>
+    <string name="lbl_ask">ASK</string>
 </resources>

@@ -17,12 +17,12 @@ import java.util.List;
 /**
  * Created by Ivan Radosavljevic on 3.12.2016.
  */
-public class MyPortraiAdapter extends BaseAdapter {
+public class MyAdapter extends BaseAdapter {
 
     List<Symbol> symbolList;
     Context myContext;
 
-    public MyPortraiAdapter(List<Symbol> symbolList, Context myContext) {
+    public MyAdapter(List<Symbol> symbolList, Context myContext) {
         this.symbolList = symbolList;
         this.myContext = myContext;
 
@@ -60,18 +60,14 @@ public class MyPortraiAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.itemName.setText(symbolList.get(i).getName());
-        holder.itemChangePersent.setText(Double.toString(symbolList.get(i).getQuoteChangePercent()) + "%");
+        holder.itemChangePersent.setText(MyNumberFormatter.myFormatter(symbolList.get(i).getQuoteChangePercent(), 1)+ "%");
         if (myContext.getResources().getConfiguration().orientation == 2) {
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
             String date = dateFormat.format(symbolList.get(i).getDateTime());
             holder.itemDateTime.setText(date.toString());
         }
-        if (symbolList.get(i).getQuoteChangePercent() < 0) {
-            holder.itemChangePersent.setTextColor(Color.RED);
-        } else {
-            holder.itemChangePersent.setTextColor(Color.GREEN);
-        }
-        holder.itemLast.setText(Double.toString(symbolList.get(i).getQuoteLast()));
+        holder.itemChangePersent.setTextColor(SetColor.set(Double.parseDouble(symbolList.get(i).getQuoteChangePercent())));
+        holder.itemLast.setText(symbolList.get(i).getQuoteLast());
         return convertView;
     }
 
@@ -79,7 +75,6 @@ public class MyPortraiAdapter extends BaseAdapter {
         TextView itemName;
         TextView itemChangePersent;
         TextView itemLast;
-        //landscape
         TextView itemDateTime;
     }
 }

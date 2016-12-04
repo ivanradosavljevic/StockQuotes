@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.example.ivanradosavljevic.stockquotes.domain.Symbol;
 import com.example.ivanradosavljevic.stockquotes.logic.MyParser;
-import com.example.ivanradosavljevic.stockquotes.logic.MyPortraiAdapter;
+import com.example.ivanradosavljevic.stockquotes.logic.MyAdapter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             /*for (int i = 0; i < symbolList.size(); i++) {
                 Log.e("Quotes", Double.toString(symbolList.get(i).getQuoteChangePercent()));
             }*/
-            lv.setAdapter(new MyPortraiAdapter(getSymbolList(), getApplicationContext()));
+            lv.setAdapter(new MyAdapter(getSymbolList(), getApplicationContext()));
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
