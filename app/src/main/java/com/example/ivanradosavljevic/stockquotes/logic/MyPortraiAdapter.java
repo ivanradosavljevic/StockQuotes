@@ -1,6 +1,5 @@
 package com.example.ivanradosavljevic.stockquotes.logic;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -11,8 +10,8 @@ import android.widget.TextView;
 import com.example.ivanradosavljevic.stockquotes.R;
 import com.example.ivanradosavljevic.stockquotes.domain.Symbol;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -26,6 +25,7 @@ public class MyPortraiAdapter extends BaseAdapter {
     public MyPortraiAdapter(List<Symbol> symbolList, Context myContext) {
         this.symbolList = symbolList;
         this.myContext = myContext;
+
     }
 
     @Override
@@ -47,18 +47,26 @@ public class MyPortraiAdapter extends BaseAdapter {
     public View getView(int i, View convertView, ViewGroup viewGroup) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = View.inflate(myContext, R.layout.activity_listview, null);
+            convertView = View.inflate(myContext, R.layout.activity_listview_relative, null);
             holder = new ViewHolder();
             holder.itemName = (TextView) convertView.findViewById(R.id.name);
-            holder.itemChangePersent = (TextView) convertView.findViewById(R.id.change_persnet);
+            holder.itemChangePersent = (TextView) convertView.findViewById(R.id.change_percent);
             holder.itemLast = (TextView) convertView.findViewById(R.id.last);
+            if (myContext.getResources().getConfiguration().orientation == 2) {
+                holder.itemDateTime = (TextView) convertView.findViewById(R.id.date_time);
+            }
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.itemName.setText(symbolList.get(i).getName());
-        holder.itemChangePersent.setText(Double.toString(symbolList.get(i).getQuoteChangePercent())+"%");
-        if(symbolList.get(i).getQuoteChangePercent()<0){
+        holder.itemChangePersent.setText(Double.toString(symbolList.get(i).getQuoteChangePercent()) + "%");
+        if (myContext.getResources().getConfiguration().orientation == 2) {
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+            String date = dateFormat.format(symbolList.get(i).getDateTime());
+            holder.itemDateTime.setText(date.toString());
+        }
+        if (symbolList.get(i).getQuoteChangePercent() < 0) {
             holder.itemChangePersent.setTextColor(Color.RED);
         } else {
             holder.itemChangePersent.setTextColor(Color.GREEN);
@@ -71,5 +79,7 @@ public class MyPortraiAdapter extends BaseAdapter {
         TextView itemName;
         TextView itemChangePersent;
         TextView itemLast;
+        //landscape
+        TextView itemDateTime;
     }
 }

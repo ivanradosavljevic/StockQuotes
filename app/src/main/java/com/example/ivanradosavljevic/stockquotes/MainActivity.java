@@ -112,9 +112,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            for (int i = 0; i < symbolList.size(); i++) {
+            /*for (int i = 0; i < symbolList.size(); i++) {
                 Log.e("Quotes", Double.toString(symbolList.get(i).getQuoteChangePercent()));
-            }
+            }*/
             lv.setAdapter(new MyPortraiAdapter(getSymbolList(), getApplicationContext()));
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
