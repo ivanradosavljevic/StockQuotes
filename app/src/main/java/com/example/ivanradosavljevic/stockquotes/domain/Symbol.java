@@ -1,6 +1,9 @@
 package com.example.ivanradosavljevic.stockquotes.domain;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -48,8 +51,13 @@ public class Symbol implements Serializable {
         return dateTime;
     }
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setDateTime(String text) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        try {
+            dateTime = dateFormat.parse(text);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public double getQuoteOpen() {

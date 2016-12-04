@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">StockQuotes</string>
+    <string name="lbl_change">Last</string>
+    <string name="lbl_change_per">Change(%)</string>
 </resources>

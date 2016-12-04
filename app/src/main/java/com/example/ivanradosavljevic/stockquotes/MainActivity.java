@@ -3,7 +3,6 @@ package com.example.ivanradosavljevic.stockquotes;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +23,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     ListView lv;
@@ -35,8 +36,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         symbolList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.stock_list);
-        String url = "http://www.teletrader.com/downloads/symbols.xml";
-        new Operation().execute(url);
+        setsetRepeatingAsyncTask();
+        
+    }
+
+    private void setsetRepeatingAsyncTask() {
+
+
+        final android.os.Handler handler = new android.os.Handler();
+        Timer timer = new Timer();
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    public void run() {
+                        try {
+                            new Operation().execute("http://www.teletrader.com/downloads/symbols.xml");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        };
+
+        timer.schedule(task, 0, 5*60*1000);
 
     }
 

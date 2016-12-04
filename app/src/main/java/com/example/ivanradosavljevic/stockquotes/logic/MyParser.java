@@ -59,7 +59,7 @@ public class MyParser {
                         symbol.setQuoteChange(Double.parseDouble(quoteNode.getAttribute("change")));
                         symbol.setQuoteLow(Double.parseDouble(quoteNode.getAttribute("low")));
                         symbol.setQuoteOpen(Double.parseDouble(quoteNode.getAttribute("open")));
-                        // symbol.setDateTime(new SimpleDateFormat("HH:mm:ss").parse(quoteNode.getAttribute("dataTime")));
+                        symbol.setDateTime(quoteNode.getAttribute("dateTime"));
                     }
                     list.add(symbol);
                 }
