@@ -13,11 +13,15 @@ import android.widget.ListView;
 import com.example.ivanradosavljevic.stockquotes.domain.Symbol;
 import com.example.ivanradosavljevic.stockquotes.logic.MyParser;
 import com.example.ivanradosavljevic.stockquotes.logic.MyAdapter;
+import com.example.ivanradosavljevic.stockquotes.logic.MySharedPreference;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,23 +33,24 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
     ListView lv;
     List<Symbol> symbolList;
+    Gson gson;
+    MySharedPreference sharedPreference;
+    MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         symbolList = new ArrayList<>();
+        gson = new Gson();
         lv = (ListView) findViewById(R.id.stock_list);
+        sharedPreference = new MySharedPreference(getApplicationContext());
+        getSymbolListFromSharedPreference();
         setsetRepeatingAsyncTask();
-        
     }
-
     private void setsetRepeatingAsyncTask() {
-
-
         final android.os.Handler handler = new android.os.Handler();
         Timer timer = new Timer();
-
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
@@ -64,9 +69,25 @@ public class MainActivity extends AppCompatActivity {
         timer.schedule(task, 0, 5*60*1000);
 
     }
-
     public List<Symbol> getSymbolList() {
         return symbolList;
+    }
+
+    private void saveSymbolListToSharedpreference(List<Symbol> symbolList) {
+        //convert ArrayList object to String by Gson
+        String jsonScore = gson.toJson(symbolList);
+
+        //save to shared preference
+        sharedPreference.saveSymbolList(jsonScore);
+    }
+
+    private void getSymbolListFromSharedPreference() {
+        //retrieve data from shared preference
+        String jsonScore = sharedPreference.getSymbolList();
+        Type type = new TypeToken<List<Symbol>>(){}.getType();
+        symbolList = gson.fromJson(jsonScore, type);
+        myAdapter = new MyAdapter(symbolList,getApplicationContext());
+        lv.setAdapter(myAdapter);
     }
 
     private class Operation extends AsyncTask<String, Void, String> {
@@ -95,9 +116,8 @@ public class MainActivity extends AppCompatActivity {
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     server_response = readStream(urlConnection.getInputStream());
                     Log.v("CatalogClient", server_response);
-                    //DOM PARSER!!!
                     MyParser myParser = new MyParser(server_response);
-                    symbolList = myParser.getList();
+                    MainActivity.this.symbolList = myParser.getList();
 
                 }
             } catch (MalformedURLException e) {
@@ -112,9 +132,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            /*for (int i = 0; i < symbolList.size(); i++) {
-                Log.e("Quotes", Double.toString(symbolList.get(i).getQuoteChangePercent()));
-            }*/
             lv.setAdapter(new MyAdapter(getSymbolList(), getApplicationContext()));
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -128,8 +145,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
-// Converting InputStream to String
 
     private String readStream(InputStream in) {
         BufferedReader reader = null;
@@ -152,6 +167,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return response.toString();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveSymbolListToSharedpreference(symbolList);
     }
 }
 
