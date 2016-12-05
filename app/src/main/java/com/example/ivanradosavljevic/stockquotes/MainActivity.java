@@ -80,10 +80,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void getSymbolListFromSharedPreference() {
         String jsonScore = sharedPreference.getSymbolList();
-        Type type = new TypeToken<List<Symbol>>(){}.getType();
+        Type type = new TypeToken<List<Symbol>>() {
+        }.getType();
         symbolList = gson.fromJson(jsonScore, type);
-        myAdapter = new MyAdapter(symbolList,getApplicationContext());
-        lv.setAdapter(myAdapter);
+        if (symbolList != null) {
+            myAdapter = new MyAdapter(symbolList, getApplicationContext());
+            lv.setAdapter(myAdapter);
+        }
     }
 
     private class Operation extends AsyncTask<String, Void, String> {
