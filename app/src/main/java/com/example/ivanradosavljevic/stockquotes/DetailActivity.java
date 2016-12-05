@@ -48,8 +48,6 @@ public class DetailActivity extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss.");
         dateTime.setText(dateFormat.format(symbol.getDateTime()));
 
-
-        //ladscape
         if(getResources().getConfiguration().orientation == 2){
             TextView open = (TextView) findViewById(R.id.detail_open);
             TextView high = (TextView) findViewById(R.id.detail_high);

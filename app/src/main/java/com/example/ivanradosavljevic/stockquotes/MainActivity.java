@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -74,15 +73,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveSymbolListToSharedpreference(List<Symbol> symbolList) {
-        //convert ArrayList object to String by Gson
         String jsonScore = gson.toJson(symbolList);
 
-        //save to shared preference
         sharedPreference.saveSymbolList(jsonScore);
     }
 
     private void getSymbolListFromSharedPreference() {
-        //retrieve data from shared preference
         String jsonScore = sharedPreference.getSymbolList();
         Type type = new TypeToken<List<Symbol>>(){}.getType();
         symbolList = gson.fromJson(jsonScore, type);
@@ -115,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     server_response = readStream(urlConnection.getInputStream());
-                    Log.v("CatalogClient", server_response);
                     MyParser myParser = new MyParser(server_response);
                     MainActivity.this.symbolList = myParser.getList();
 

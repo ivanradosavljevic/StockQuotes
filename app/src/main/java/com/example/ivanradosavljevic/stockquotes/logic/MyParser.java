@@ -43,7 +43,6 @@ public class MyParser {
             NodeList listSymbols = document.getElementsByTagName("SymbolList");
             for (int i = 0; i < listSymbols.getLength(); i++) {
                 Element symbolListNode = (Element) listSymbols.item(i);
-                // String tickets = symbolListNode.getNodeValue();
                 NodeList symbols = symbolListNode.getElementsByTagName("Symbol");
                 for (int j = 0; j < symbols.getLength(); j++) {
                     Element symbolNode = (Element) symbols.item(j);
